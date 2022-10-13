@@ -1,0 +1,44 @@
+`bigquery-public-data.chicago_taxi_trips.taxi_trips`
+
+
+-- Sprawdzenie nulli w bazie 
+
+SELECT
+  col_name,
+  COUNT(1) nulls_count
+FROM `bigquery-public-data.chicago_taxi_trips.taxi_trips` AS t,
+UNNEST(REGEXP_EXTRACT_ALL(TO_JSON_STRING(t), r'"(\w+)":null')) col_name
+GROUP BY col_name
+ORDER BY nulls_count DESC;
+
+
+
+-- Liczba przejazdów per data 
+SELECT
+CAST(trip_start_timestamp as date) as trip_date,
+count(*) as trip_count
+FROM `bigquery-public-data.chicago_taxi_trips.taxi_trips`
+WHERE trip_start_timestamp between '2018-01-01' and '2020-01-01'
+GROUP BY trip_date
+ORDER BY trip_count DESC
+
+-- Liczba przejazdów per month
+SELECT
+EXTRACT(month from trip_start_timestamp) as trip_month,
+count(*) as trip_count
+FROM `bigquery-public-data.chicago_taxi_trips.taxi_trips`
+GROUP BY trip_month
+ORDER BY trip_count DESC;
+
+
+-- Liczba przejazdów per rok 
+SELECT
+EXTRACT(year from trip_start_timestamp) as trip_year,
+count(*) as trip_count
+FROM `bigquery-public-data.chicago_taxi_trips.taxi_trips`
+GROUP BY trip_year
+ORDER BY trip_count DESC;
+
+
+
+
