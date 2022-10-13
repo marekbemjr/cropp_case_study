@@ -39,7 +39,7 @@ FROM `bigquery-public-data.chicago_taxi_trips.taxi_trips`
 GROUP BY trip_year
 ORDER BY trip_count DESC;
 
--- ile przejazdów przez daną firme taksówką 
+-- najpopularniejsza firma taksi 
 SELECT company, count (*) as rides_total
 FROM `bigquery-public-data.chicago_taxi_trips.taxi_trips`
 WHERE company is NOT NULL
