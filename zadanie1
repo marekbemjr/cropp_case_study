@@ -53,7 +53,7 @@ ORDER BY count(*) DESC
 LIMIT 50;
 
 ---Average miles per taxi companie 
-SELECT company, AVG(trip_miles) AS Avg_ride_miles
+SELECT company, ROUND(AVG(trip_miles),2) AS Avg_ride_miles
 FROM `bigquery-public-data.chicago_taxi_trips.taxi_trips`
 WHERE trip_miles >=1
 GROUP BY company 
@@ -74,18 +74,33 @@ Hour
 ORDER BY
 count DESC
 
------ do sprawdzenia !! 
-SELECT EXTRACT(HOUR FROM trip_start_timestamp) AS hour_of_day, trip_miles, trip_seconds
+---- avg mile per hour  ||| sprawdzić 
+SELECT
+  EXTRACT(HOUR FROM trip_start_timestamp) AS Hour,
+  AVG(trip_miles) AS miles
 FROM `bigquery-public-data.chicago_taxi_trips.taxi_trips`
-WHERE trip_start_timestamp > '2017-01-01' AND 
-trip_start_timestamp < '2017-07-01' AND 
-trip_seconds > 0 AND 
-trip_miles > 0
-)
-SELECT hour_of_day, 
-COUNT(1) AS num_trips, 
-3600 * SUM(trip_miles) / SUM(trip_seconds) AS avg_mph
-FROM `bigquery-public-data.chicago_taxi_trips.taxi_trips`
-GROUP BY hour_of_day
-ORDER BY hour_of_day
+GROUP BY
+  Hour
+ORDER BY
+  miles DESC;
+
+----- avarage speed during day ||| sprawdzić 
+SELECT
+  EXTRACT(HOUR
+  FROM
+    trip_start_timestamp) AS hour,
+  ROUND(AVG(trip_miles / TIMESTAMP_DIFF(trip_end_timestamp,
+        trip_end_timestamp,
+        SECOND))*3600, 1) AS speed
+FROM
+  `bigquery-public-data.chicago_taxi_trips.taxi_trips`
+WHERE
+  trip_miles > 0
+  AND fare/trip_miles BETWEEN 2
+  AND 10
+  AND trip_end_timestamp > trip_start_timestamp
+GROUP BY
+  1
+ORDER BY
+  1
 
