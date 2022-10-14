@@ -74,7 +74,7 @@ Hour
 ORDER BY
 count DESC
 
----- avg mile per hour  ||| sprawdzić 
+---avg mile per hour 
 SELECT
   EXTRACT(HOUR FROM trip_start_timestamp) AS Hour,
   AVG(trip_miles) AS miles
