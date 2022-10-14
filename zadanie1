@@ -1,8 +1,7 @@
 `bigquery-public-data.chicago_taxi_trips.taxi_trips`
 
 
--- Sprawdzenie nulli w bazie 
-
+--  check nulls 
 SELECT
   col_name,
   COUNT(1) nulls_count
