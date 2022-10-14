@@ -22,7 +22,7 @@ WHERE trip_start_timestamp between '2018-01-01' and '2020-01-01'
 GROUP BY trip_date
 ORDER BY trip_count DESC
 
--- Liczba przejazdów per month
+-- W którym miesiącu na przestrzeni wszystkich lat było najwiecej przejazdów 
 SELECT
 EXTRACT(month from trip_start_timestamp) as trip_month,
 count(*) as trip_count
@@ -31,7 +31,7 @@ GROUP BY trip_month
 ORDER BY trip_count DESC;
 
 
--- Liczba przejazdów per rok 
+-- Jak liczba przejazdów kszatłowała się na przestrzeni lat 2014 - 2022 (niepełny rok) 
 SELECT
 EXTRACT(year from trip_start_timestamp) as trip_year,
 count(*) as trip_count
@@ -39,7 +39,7 @@ FROM `bigquery-public-data.chicago_taxi_trips.taxi_trips`
 GROUP BY trip_year
 ORDER BY trip_count DESC;
 
--- najpopularniejsza firma taksi 
+-- Najpopularniejsza firma taksi 
 SELECT company, count (*) as rides_total
 FROM `bigquery-public-data.chicago_taxi_trips.taxi_trips`
 WHERE company is NOT NULL
@@ -47,10 +47,12 @@ GROUP BY company
 ORDER BY count(*) DESC
 LIMIT 50
 
---jaka forma platnosci byla najpopularniejsza 
+--Jaka forma platnosci byla najpopularniejsza 
 SELECT payment_type, count(*) as payment
 FROM `bigquery-public-data.chicago_taxi_trips.taxi_trips`
 GROUP BY payment_type
 ORDER BY count(*) DESC
 LIMIT 50;
+
+
 
