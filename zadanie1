@@ -84,14 +84,10 @@ GROUP BY
 ORDER BY
   miles DESC;
 
------ avarage speed during day ||| sprawdzić 
+---avarage speed during day
 SELECT
-  EXTRACT(HOUR
-  FROM
-    trip_start_timestamp) AS hour,
-  ROUND(AVG(trip_miles / TIMESTAMP_DIFF(trip_end_timestamp,
-        trip_end_timestamp,
-        SECOND))*3600, 1) AS speed
+EXTRACT(HOUR FROM trip_start_timestamp) AS hour,
+AVG((trip_miles/TIMESTAMP_DIFF(trip_end_timestamp,trip_start_timestamp, MINUTE))) AS miles_per_minute
 FROM
   `bigquery-public-data.chicago_taxi_trips.taxi_trips`
 WHERE
@@ -99,8 +95,6 @@ WHERE
   AND fare/trip_miles BETWEEN 2
   AND 10
   AND trip_end_timestamp > trip_start_timestamp
-GROUP BY
-  1
-ORDER BY
-  1
+GROUP BY hour
+ORDER BY hour
 
