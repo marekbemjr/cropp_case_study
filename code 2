@@ -1,0 +1,59 @@
+SELECT
+  *
+FROM`bigquery-public-data.google_analytics_sample.ga_sessions_*`
+where
+_table_suffix between '20170801' and '20180801'
+
+
+
+-- punkt 1 źródła ruchu. 
+SELECT
+source,
+total_visits,
+total_no_of_bounces,
+ROUND(((total_no_of_bounces / total_visits ) * 100),2) AS bounce_rate
+FROM (
+SELECT
+trafficSource.source AS source,
+COUNT ( trafficSource.source ) AS total_visits,
+SUM ( totals.bounces ) AS total_no_of_bounces
+FROM
+  `bigquery-public-data.google_analytics_sample.ga_sessions_*`
+WHERE
+  _table_suffix between '20170801' and '20180801'AND
+trafficSource.source != "(direct)"
+GROUP BY
+source )
+ORDER BY
+total_visits DESC
+
+
+-- punkt 2 ??? 
+SELECT distinct channelGrouping, count(visitId) as count_visit
+FROM
+  `bigquery-public-data.google_analytics_sample.ga_sessions_*`
+WHERE
+  _table_suffix between '20170801' and '20180801'
+  AND channelGrouping != 'Direct'
+GROUP BY channelGrouping
+
+-- punkt 2 ??? 
+SELECT device.browser,
+SUM ( totals.transactions ) AS total_transactions
+FROM
+  `bigquery-public-data.google_analytics_sample.ga_sessions_*`
+WHERE
+  _table_suffix between '20170801' and '20180801'
+GROUP BY
+device.browser
+ORDER BY
+total_transactions DESC
+
+
+
+SELECT date, 
+       SUM(totals.visits) AS sessions
+FROM
+  `bigquery-public-data.google_analytics_sample.ga_sessions_*`
+WHERE date between '20170801' and '20180801'
+GROUP BY date
