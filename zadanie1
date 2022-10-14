@@ -1,7 +1,7 @@
 `bigquery-public-data.chicago_taxi_trips.taxi_trips`
 
 
---  check nulls 
+---check nulls 
 SELECT
   col_name,
   COUNT(1) nulls_count
@@ -11,7 +11,7 @@ GROUP BY col_name
 ORDER BY nulls_count DESC;
 
 
--- Number of trips per date  
+---Number of trips per date  
 SELECT
 CAST(trip_start_timestamp as date) as trip_date,
 count(*) as trip_count
@@ -20,7 +20,7 @@ WHERE trip_start_timestamp between '2018-01-01' and '2020-01-01'
 GROUP BY trip_date
 ORDER BY trip_count DESC
 
--- In which month over all years there were the most rides 
+---In which month over all years there were the most rides 
 SELECT
 EXTRACT(month from trip_start_timestamp) as trip_month,
 count(*) as trip_count
@@ -29,7 +29,7 @@ GROUP BY trip_month
 ORDER BY trip_count DESC;
 
 
---How the number of trips has evolved over the period 2014 - 2022 (incomplete year) 
+---How the number of trips has evolved over the period 2014 - 2022 (incomplete year) 
 SELECT
 EXTRACT(year from trip_start_timestamp) as trip_year,
 count(*) as trip_count
@@ -37,7 +37,7 @@ FROM `bigquery-public-data.chicago_taxi_trips.taxi_trips`
 GROUP BY trip_year
 ORDER BY trip_count DESC;
 
--- The most popular taxi company 
+---The most popular taxi company 
 SELECT company, count (*) as rides_total
 FROM `bigquery-public-data.chicago_taxi_trips.taxi_trips`
 WHERE company is NOT NULL
@@ -45,21 +45,21 @@ GROUP BY company
 ORDER BY count(*) DESC
 LIMIT 50
 
---Which form of payment was the most popular 
+---Which form of payment was the most popular 
 SELECT payment_type, count(*) as payment
 FROM `bigquery-public-data.chicago_taxi_trips.taxi_trips`
 GROUP BY payment_type
 ORDER BY count(*) DESC
 LIMIT 50;
 
--- Average miles per taxi companie 
+---Average miles per taxi companie 
 SELECT company, AVG(trip_miles) AS Avg_ride_miles
 FROM `bigquery-public-data.chicago_taxi_trips.taxi_trips`
 WHERE trip_miles >=1
 GROUP BY company 
 ORDER BY Avg_ride_miles DESC;
 
--- Most popular hours
+---Most popular hours
 WITH subquery AS (
 SELECT
 EXTRACT(HOUR FROM trip_start_timestamp) AS hour
@@ -74,7 +74,7 @@ Hour
 ORDER BY
 count DESC
 
-
+----- do sprawdzenia !! 
 SELECT EXTRACT(HOUR FROM trip_start_timestamp) AS hour_of_day, trip_miles, trip_seconds
 FROM `bigquery-public-data.chicago_taxi_trips.taxi_trips`
 WHERE trip_start_timestamp > '2017-01-01' AND 
