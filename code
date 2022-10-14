@@ -60,6 +60,21 @@ WHERE trip_miles >=1
 GROUP BY company 
 ORDER BY Avg_ride_miles DESC;
 
+-- Most popular hours
+WITH subquery AS (
+SELECT
+EXTRACT(HOUR FROM trip_start_timestamp) AS hour
+FROM `bigquery-public-data.chicago_taxi_trips.taxi_trips`)
+SELECT
+Hour,
+COUNT(Hour) AS count
+FROM
+subquery
+GROUP BY
+Hour
+ORDER BY
+count DESC
+
 
 SELECT EXTRACT(HOUR FROM trip_start_timestamp) AS hour_of_day, trip_miles, trip_seconds
 FROM `bigquery-public-data.chicago_taxi_trips.taxi_trips`
