@@ -123,6 +123,7 @@ ORDER BY
 --- Dzięki tej funkcji chciałem pokazać srednią mil/h podczas jedno kursu w ciągu konkretnej godziny w ciągu dnia. Przez dane z tabeli oraz ogranizcania związane z 
 darmową wersją BQ udało się policzyć mil/minute. Ale dalej możemy zauważyć, że w godzinach porannych zarówną odbywają się najdłuższe kursu jak i samochody jadą z większą
 prędkością (mniejsze korki). 
+WYKRES 8
 
 SELECT
 EXTRACT(HOUR FROM trip_start_timestamp) AS hour,
