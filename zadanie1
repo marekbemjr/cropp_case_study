@@ -11,7 +11,12 @@ GROUP BY col_name
 ORDER BY nulls_count DESC;
 
 
----Number of trips per date  
+--- Pierwszy przykład to sprawdzenie ilości przejazdów każdego dnia od 2018-01-01 do 2020-01-01. Mozemy zauważyć, że największa liczba
+przejazdów odbyła się w 1 czerwca 2018. Pomiedzy 2018-2020 najwiecej przejazdów odbyło się własnie w 2018. Cały trend spatkowy pokazany 
+w nastepnych przykładach pokazuje duże spadek zainteresowania przejazdami taksówkami w Chicago. Taki wyniki zapytania można oczywiście
+wyeksportować do pliku .csv a nastepnie otworzyć w MS Excel. Utworzyć tabelę oraz tabele przestawną i stworzyć wykreś na którym 
+dokładnie można zaobserwować problem podzielony na lata czy kwartały.  
+
 SELECT
 CAST(trip_start_timestamp as date) as trip_date,
 count(*) as trip_count
@@ -19,47 +24,72 @@ FROM `bigquery-public-data.chicago_taxi_trips.taxi_trips`
 WHERE trip_start_timestamp between '2018-01-01' and '2020-01-01'
 GROUP BY trip_date
 ORDER BY trip_count DESC
+---
 
----In which month over all years there were the most rides 
+
+--- Na podstawie tej funkcji możemy sprawdzić, który w którym miesiącu od 2014 do 2022 odbyło się najwiecej przejazdów. 
+Okazuje się, ze miesiąc maj oraz marzec są najbardziej obleganymi jesl chodzi o przejazdy taksówkami.
+WYKRES 1 
+
 SELECT
 EXTRACT(month from trip_start_timestamp) as trip_month,
 count(*) as trip_count
 FROM `bigquery-public-data.chicago_taxi_trips.taxi_trips`
 GROUP BY trip_month
 ORDER BY trip_count DESC;
+---
 
 
----How the number of trips has evolved over the period 2014 - 2022 (incomplete year) 
+--- Funkcja pokazuje duży trend spadkowy rok do roku (2014-2022) jesli chodzi o przejazdy taksówkami w Chicago. Wpływ na to najprawdopdobniej
+miało prowadzenie UBERA oraz innych prywatnych przejazdów. 
+WYKRES 2 
+
 SELECT
 EXTRACT(year from trip_start_timestamp) as trip_year,
 count(*) as trip_count
 FROM `bigquery-public-data.chicago_taxi_trips.taxi_trips`
 GROUP BY trip_year
 ORDER BY trip_count DESC;
+---
 
----The most popular taxi company 
+
+--- Przy dużej liczbie firm taxi w Chicago tutaj możemy zobaczyć 50 najpopularniejszych. Taxi Affiliation Services ma bardzo dużo przewagę 
+nad kolejną. 
+
+WYKRES 3
 SELECT company, count (*) as rides_total
 FROM `bigquery-public-data.chicago_taxi_trips.taxi_trips`
 WHERE company is NOT NULL
 GROUP BY company 
 ORDER BY count(*) DESC
 LIMIT 50
+---
 
----Which form of payment was the most popular 
+
+
+--- Najabrdziej popularną metodą płatności jest cały czas gotówka 
+WYKRE 4
+
 SELECT payment_type, count(*) as payment
 FROM `bigquery-public-data.chicago_taxi_trips.taxi_trips`
 GROUP BY payment_type
 ORDER BY count(*) DESC
-LIMIT 50;
+---
 
----Average miles per taxi companie 
+
+
+--- Tutaj możemy zaobserwować ile średnio taksówka robi mil podczas kursu. Ilość danych zostałą przefiltrowana w Tableau. Co ciekawe w tym zestawieniu nie ma zadnej z
+firm z pierwszej 5 najpopularniejszych firm. 
 SELECT company, ROUND(AVG(trip_miles),2) AS Avg_ride_miles
 FROM `bigquery-public-data.chicago_taxi_trips.taxi_trips`
 WHERE trip_miles >=1
 GROUP BY company 
 ORDER BY Avg_ride_miles DESC;
+----
 
----Most popular hours
+
+--- Najchętniej wybierany godziny na przejazd taksówką w Chicago to godziy popołudniowe 17-18. 
+WYKRES 6 
 WITH subquery AS (
 SELECT
 EXTRACT(HOUR FROM trip_start_timestamp) AS hour
@@ -73,8 +103,12 @@ GROUP BY
 Hour
 ORDER BY
 count DESC
+--- 
 
----avg mile per hour 
+
+---Średnia mil przejechana przez taksówki w konkretnej godzinie w ciagu dnia. Tutaj widać, że najdłuższe kursu odbywają się nad ranem. 
+WYKRES 7
+
 SELECT
   EXTRACT(HOUR FROM trip_start_timestamp) AS Hour,
   AVG(trip_miles) AS miles
@@ -83,8 +117,12 @@ GROUP BY
   Hour
 ORDER BY
   miles DESC;
+---
 
----avarage speed during day
+
+--- Dzięki tej funkcji chciałem pokazać srednią mil/h podczas jedno kursu w ciągu konkretnej godziny w ciągu dnia. Przez dane z tabeli oraz ogranizcania związane z 
+darmową wersją BQ udało się policzyć mil/sekundy. 
+
 SELECT
 EXTRACT(HOUR FROM trip_start_timestamp) AS hour,
 AVG((trip_miles/TIMESTAMP_DIFF(trip_end_timestamp,trip_start_timestamp, MINUTE))) AS miles_per_minute
