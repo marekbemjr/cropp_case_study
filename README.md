@@ -18,9 +18,10 @@ Ten zbiór danych zawiera przejazdy taksówkowe od 2013 roku do chwili obecnej, 
 Aby chronić prywatność, ale umożliwić analizy zbiorcze, Taxi ID jest spójne dla każdego numeru "znaku" taksówki, ale nie pokazuje numeru. 
 Czasy są zaokrąglone do najbliższych 15 minut. Ze względu na proces raportowania danych, nie wszystkie podróże są raportowane.
 Tutaj: http://digital.cityofchicago.org/index.php/chicago-taxi-data-released, można uzyskać więcej informacji o tym zbiorze danych i jak został on stworzony.
-Zbiór danych nie obejmuje danych z firm TZW: ridesharingowych, takich jak Uber i Lyft. sĄ to tylko publiczne taksówki. Trzeba zaznaczyć, że jest to ogromny zbiór danych 
-zawierający ponad 200 milionów przejazdów.
+Zbiór danych nie obejmuje danych z firm tzw: ridesharingowych, takich jak Uber i Lyft. Są to tylko publiczne taksówki. Trzeba zaznaczyć, że jest to ogromny zbiór danych zawierający ponad 200 milionów przejazdów.
 
+Ograniczenia podczas analizy zbioru danuch wynikały z małego doświadczenia pracy nad takim zbiorami oraz ograniczeń darmowego programu BigQuery, który bardzo często 
+nie pozwalał na wygenerowanie kodu z powodu przekroczenia pamięci. 
 
 
 
