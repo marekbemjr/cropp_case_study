@@ -23,7 +23,7 @@ Tableau Dashboard https://public.tableau.com/views/Cropp/DashboardCROPPCasestudy
 
 
 
-- **Pierwszy przykład to sprawdzenie ilości przejazdów każdego dnia od 2018-01-01 do 2020-01-01. Mozemy zauważyć, że największa liczba
+**Pierwszy przykład to sprawdzenie ilości przejazdów każdego dnia od 2018-01-01 do 2020-01-01. Mozemy zauważyć, że największa liczba
 przejazdów odbyła się w 1 czerwca 2018. Pomiedzy 2018-2020 najwiecej przejazdów odbyło się własnie w roky 2018. Cały trend spatkowy pokazany 
 w nastepnych przykładach pokazuje duże spadek zainteresowania przejazdami taksówkami w Chicago. Poniższy wyniki zapytania można oczywiście
 wyeksportować do pliku .csv a nastepnie otworzyć w MS Excel. Utworzyć tabelę oraz tabele przestawną i stworzyć wykreś na którym 
@@ -110,4 +110,44 @@ SELECT payment_type, count(*) as payment
 FROM `bigquery-public-data.chicago_taxi_trips.taxi_trips`
 GROUP BY payment_type
 ORDER BY count(*) DESC
+```
+
+
+## WYKRES 5 
+
+![image](https://user-images.githubusercontent.com/110094376/196025637-0015c822-e20f-4dd2-a7dd-5e165b4155b0.png)
+
+**Tutaj możemy zaobserwować ile średnio taksówka przebywa mil podczas kursu. Ilość danych zostałą przefiltrowana w Tableau. 
+Co ciekawe w tym zestawieniu nie ma zadnej z firm z pierwszej 5 najpopularniejszych firm.**
+
+```
+SELECT company, ROUND(AVG(trip_miles),2) AS Avg_ride_miles
+FROM `bigquery-public-data.chicago_taxi_trips.taxi_trips`
+WHERE trip_miles >=1
+GROUP BY company 
+ORDER BY Avg_ride_miles DESC;
+
+```
+
+
+## WYKRES 6 
+
+![image](https://user-images.githubusercontent.com/110094376/196025718-f5554149-e00a-4ee1-b16a-e9d8689cbceb.png)
+
+**Najchętniej wybierany godziny na przejazd taksówką w Chicago to godziy popołudniowe 17-18.**
+
+```
+WITH subquery AS (
+SELECT
+EXTRACT(HOUR FROM trip_start_timestamp) AS hour
+FROM `bigquery-public-data.chicago_taxi_trips.taxi_trips`)
+SELECT
+Hour,
+COUNT(Hour) AS count
+FROM
+subquery
+GROUP BY
+Hour
+ORDER BY
+count DESC
 ```
