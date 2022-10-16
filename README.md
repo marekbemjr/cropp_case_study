@@ -1,8 +1,6 @@
-                                                                ## Ccropp_case_study
-
+                                                              
 
 # CHICAGO TAXI TRIPS 
-Tableau Dashboard https://public.tableau.com/views/Cropp/DashboardCROPPCasestudy_1?:language=en-US&:display_count=n&:origin=viz_share_link
 
 
 Kontekst
@@ -19,4 +17,23 @@ Zbiór danych nie obejmuje danych z firm TZW: ridesharingowych, takich jak Uber 
 zawierający ponad 200 milionów przejazdów.
 
 
-⛔ Baza danych, która została wykorzystana 
+Tableau Dashboard https://public.tableau.com/views/Cropp/DashboardCROPPCasestudy_1?:language=en-US&:display_count=n&:origin=viz_share_link
+
+
+
+Pierwszy przykład to sprawdzenie ilości przejazdów każdego dnia od 2018-01-01 do 2020-01-01. Mozemy zauważyć, że największa liczba
+przejazdów odbyła się w 1 czerwca 2018. Pomiedzy 2018-2020 najwiecej przejazdów odbyło się własnie w roky 2018. Cały trend spatkowy pokazany 
+w nastepnych przykładach pokazuje duże spadek zainteresowania przejazdami taksówkami w Chicago. Poniższy wyniki zapytania można oczywiście
+wyeksportować do pliku .csv a nastepnie otworzyć w MS Excel. Utworzyć tabelę oraz tabele przestawną i stworzyć wykreś na którym 
+dokładnie można zaobserwować problem podzielony na lata czy kwartały.  
+
+```
+SELECT
+CAST(trip_start_timestamp as date) as trip_date,
+count(*) as trip_count
+FROM `bigquery-public-data.chicago_taxi_trips.taxi_trips`
+WHERE trip_start_timestamp between '2018-01-01' and '2020-01-01'
+GROUP BY trip_date
+ORDER BY trip_count DESC
+
+```
