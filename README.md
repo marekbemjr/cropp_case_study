@@ -22,8 +22,9 @@ Zbiór danych nie obejmuje danych z firm TZW: ridesharingowych, takich jak Uber 
 zawierający ponad 200 milionów przejazdów.
 
 
-### Tableau Dashboard https://public.tableau.com/views/Cropp/DashboardCROPPCasestudy_1?:language=en-US&:display_count=n&:origin=viz_share_link
 
+
+### Tableau Dashboard https://public.tableau.com/views/Cropp/DashboardCROPPCasestudy_1?:language=en-US&:display_count=n&:origin=viz_share_link
 
 
 **Pierwszy przykład to sprawdzenie ilości przejazdów każdego dnia od 2018-01-01 do 2020-01-01. Mozemy zauważyć, że największa liczba
