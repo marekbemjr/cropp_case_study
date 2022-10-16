@@ -61,6 +61,7 @@ ORDER BY trip_count DESC;
 
 
 
+
 - **Zapytanie pokazuje duży trend spadkowy rok do roku (2014-2022) jesli chodzi o przejazdy taksówkami w Chicago. Wpływ na to najprawdopdobniej
 miało prowadzenie UBERA oraz innych prywatnych przejazdów.**
 
@@ -76,6 +77,7 @@ ORDER BY trip_count DESC;
 ## WYKRES 2 
 
 ![image](https://user-images.githubusercontent.com/110094376/196025263-b624aa79-7146-49eb-9ab0-7003f13af0ea.png)
+
 
 
 
@@ -97,7 +99,9 @@ LIMIT 50
 
 
 
-- **Najabrdziej popularną metodą płatności jest cały czas gotówka** 
+
+
+- **Najabrdziej popularną metodą płatności jest cały czas gotówka** -
 
 ```
 SELECT payment_type, count(*) as payment
