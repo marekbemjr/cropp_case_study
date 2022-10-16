@@ -12,13 +12,7 @@ GROUP BY col_name
 ORDER BY nulls_count DESC;
 ---
 
---- 
-Pierwszy przykład to sprawdzenie ilości przejazdów każdego dnia od 2018-01-01 do 2020-01-01. Mozemy zauważyć, że największa liczba
-przejazdów odbyła się w 1 czerwca 2018. Pomiedzy 2018-2020 najwiecej przejazdów odbyło się własnie w 2018. Cały trend spatkowy pokazany 
-w nastepnych przykładach pokazuje duże spadek zainteresowania przejazdami taksówkami w Chicago. Taki wyniki zapytania można oczywiście
-wyeksportować do pliku .csv a nastepnie otworzyć w MS Excel. Utworzyć tabelę oraz tabele przestawną i stworzyć wykreś na którym 
-dokładnie można zaobserwować problem podzielony na lata czy kwartały.  
-
+---
 SELECT
 CAST(trip_start_timestamp as date) as trip_date,
 count(*) as trip_count
@@ -30,8 +24,6 @@ ORDER BY trip_count DESC
 
 
 --- 
-Na podstawie tej funkcji możemy sprawdzić, który w którym miesiącu od 2014 do 2022 odbyło się najwiecej przejazdów. 
-Okazuje się, ze miesiąc maj oraz marzec są najbardziej obleganymi jesl chodzi o przejazdy taksówkami.
 WYKRES 1 
 
 SELECT
@@ -44,8 +36,6 @@ ORDER BY trip_count DESC;
 
 
 --- 
-Funkcja pokazuje duży trend spadkowy rok do roku (2014-2022) jesli chodzi o przejazdy taksówkami w Chicago. Wpływ na to najprawdopdobniej
-miało prowadzenie UBERA oraz innych prywatnych przejazdów. 
 WYKRES 2 
 
 SELECT
@@ -58,8 +48,6 @@ ORDER BY trip_count DESC;
 
 
 --- 
-Przy dużej liczbie firm taxi w Chicago tutaj możemy zobaczyć 50 najpopularniejszych. Taxi Affiliation Services ma bardzo dużo przewagę 
-nad kolejną. 
 
 WYKRES 3
 SELECT company, count (*) as rides_total
@@ -73,7 +61,6 @@ LIMIT 50
 
 
 --- 
-Najabrdziej popularną metodą płatności jest cały czas gotówka 
 WYKRE 4
 
 SELECT payment_type, count(*) as payment
@@ -85,8 +72,7 @@ ORDER BY count(*) DESC
 
 
 --- 
-Tutaj możemy zaobserwować ile średnio taksówka robi mil podczas kursu. Ilość danych zostałą przefiltrowana w Tableau. Co ciekawe w tym zestawieniu nie ma zadnej z
-firm z pierwszej 5 najpopularniejszych firm. 
+WYKRES 5
 SELECT company, ROUND(AVG(trip_miles),2) AS Avg_ride_miles
 FROM `bigquery-public-data.chicago_taxi_trips.taxi_trips`
 WHERE trip_miles >=1
@@ -96,7 +82,6 @@ ORDER BY Avg_ride_miles DESC;
 
 
 ---
-Najchętniej wybierany godziny na przejazd taksówką w Chicago to godziy popołudniowe 17-18. 
 WYKRES 6 
 WITH subquery AS (
 SELECT
@@ -114,8 +99,7 @@ count DESC
 --- 
 
 
----
-Średnia mil przejechana przez taksówki w konkretnej godzinie w ciagu dnia. Tutaj widać, że najdłuższe kursu odbywają się nad ranem. 
+--- 
 WYKRES 7
 
 SELECT
@@ -129,10 +113,7 @@ ORDER BY
 ---
 
 
---- 
-Dzięki tej funkcji chciałem pokazać srednią mil/h podczas jedno kursu w ciągu konkretnej godziny w ciągu dnia. Przez dane z tabeli oraz ogranizcania związane z 
-darmową wersją BQ udało się policzyć mil/minute. Ale dalej możemy zauważyć, że w godzinach porannych zarówną odbywają się najdłuższe kursu jak i samochody jadą z większą
-prędkością (mniejsze korki). 
+---  
 WYKRES 8
 
 SELECT
