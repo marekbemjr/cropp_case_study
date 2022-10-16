@@ -2,6 +2,10 @@
 
 # CHICAGO TAXI TRIPS 
 
+Żródło:
+
+https://console.cloud.google.com/marketplace/product/city-of-chicago-public-data/chicago-taxi-trips
+
 
 Kontekst:
 
