@@ -27,7 +27,7 @@ Tableau Dashboard https://public.tableau.com/views/Cropp/DashboardCROPPCasestudy
 przejazdów odbyła się w 1 czerwca 2018. Pomiedzy 2018-2020 najwiecej przejazdów odbyło się własnie w roky 2018. Cały trend spatkowy pokazany 
 w nastepnych przykładach pokazuje duże spadek zainteresowania przejazdami taksówkami w Chicago. Poniższy wyniki zapytania można oczywiście
 wyeksportować do pliku .csv a nastepnie otworzyć w MS Excel. Utworzyć tabelę oraz tabele przestawną i stworzyć wykreś na którym 
-dokładnie można zaobserwować problem podzielony na lata czy kwartały.  
+dokładnie można zaobserwować problem podzielony na lata czy kwartały.**  
 
 ```
 SELECT
@@ -41,7 +41,7 @@ ORDER BY trip_count DESC
 ```
 
 - **Na podstawie tej funkcji możemy sprawdzić, który w którym miesiącu od 2014 do 2022 odbyło się najwiecej przejazdów. 
-Okazuje się, ze miesiąc maj oraz marzec są najbardziej obleganymi jesl chodzi o przejazdy taksówkami.
+Okazuje się, ze miesiąc maj oraz marzec są najbardziej obleganymi jesl chodzi o przejazdy taksówkami.**
 
 ```
 SELECT
@@ -58,7 +58,7 @@ ORDER BY trip_count DESC;
 
 
 - **Zapytanie pokazuje duży trend spadkowy rok do roku (2014-2022) jesli chodzi o przejazdy taksówkami w Chicago. Wpływ na to najprawdopdobniej
-miało prowadzenie UBERA oraz innych prywatnych przejazdów. 
+miało prowadzenie UBERA oraz innych prywatnych przejazdów.**
 
 ```
 SELECT
