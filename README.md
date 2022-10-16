@@ -151,3 +151,43 @@ Hour
 ORDER BY
 count DESC
 ```
+
+## WYKRES 7 
+
+![image](https://user-images.githubusercontent.com/110094376/196025795-d3ace3dd-af72-4c32-b3d8-ed87f074d60a.png)
+
+**Średnia mil przejechana przez taksówki w konkretnej godzinie w ciagu dnia. Tutaj widać, że najdłuższe kursu odbywają się nad ranem.**
+
+```
+SELECT
+  EXTRACT(HOUR FROM trip_start_timestamp) AS Hour,
+  AVG(trip_miles) AS miles
+FROM `bigquery-public-data.chicago_taxi_trips.taxi_trips`
+GROUP BY
+  Hour
+ORDER BY
+  miles DESC;
+```
+
+## WYKRES 8 
+
+![image](https://user-images.githubusercontent.com/110094376/196025839-98c835f2-eafc-4f04-b139-17b4eb50c557.png)
+
+**Dzięki tej funkcji chciałem pokazać srednią mil/h podczas jedno kursu w ciągu konkretnej godziny w ciągu dnia. Przez dane z tabeli oraz ogranizcania związane z 
+darmową wersją BQ udało się policzyć mil/minute. Ale dalej możemy zauważyć, że w godzinach porannych zarówną odbywają się najdłuższe kursu jak i samochody jadą z większą prędkością (mniejsze korki).**
+
+```
+SELECT
+EXTRACT(HOUR FROM trip_start_timestamp) AS hour,
+AVG((trip_miles/TIMESTAMP_DIFF(trip_end_timestamp,trip_start_timestamp, MINUTE))) AS miles_per_minute
+FROM
+  `bigquery-public-data.chicago_taxi_trips.taxi_trips`
+WHERE
+  trip_miles > 0
+  AND fare/trip_miles BETWEEN 2
+  AND 10
+  AND trip_end_timestamp > trip_start_timestamp
+GROUP BY hour
+ORDER BY miles_per_minute DESC
+```
+
