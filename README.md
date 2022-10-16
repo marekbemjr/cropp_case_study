@@ -42,7 +42,11 @@ ORDER BY trip_count DESC
 
 
 
-- **Na podstawie tej funkcji możemy sprawdzić, który w którym miesiącu od 2014 do 2022 odbyło się najwiecej przejazdów. 
+## WYKRES 1 
+
+![image](https://user-images.githubusercontent.com/110094376/196025173-bf9ce1e8-28de-4e1a-82ab-2e0f008d523d.png)
+
+**Na podstawie tej funkcji możemy sprawdzić, który w którym miesiącu od 2014 do 2022 odbyło się najwiecej przejazdów. 
 Okazuje się, ze miesiąc maj oraz marzec są najbardziej obleganymi jesl chodzi o przejazdy taksówkami.**
 
 ```
@@ -54,15 +58,14 @@ GROUP BY trip_month
 ORDER BY trip_count DESC;
 
 ```
-## WYKRES 1 
-
-![image](https://user-images.githubusercontent.com/110094376/196025173-bf9ce1e8-28de-4e1a-82ab-2e0f008d523d.png)
 
 
+## WYKRES 2 
+
+![image](https://user-images.githubusercontent.com/110094376/196025263-b624aa79-7146-49eb-9ab0-7003f13af0ea.png)
 
 
-
-- **Zapytanie pokazuje duży trend spadkowy rok do roku (2014-2022) jesli chodzi o przejazdy taksówkami w Chicago. Wpływ na to najprawdopdobniej
+**Zapytanie pokazuje duży trend spadkowy rok do roku (2014-2022) jesli chodzi o przejazdy taksówkami w Chicago. Wpływ na to najprawdopdobniej
 miało prowadzenie UBERA oraz innych prywatnych przejazdów.**
 
 ```
@@ -74,14 +77,14 @@ GROUP BY trip_year
 ORDER BY trip_count DESC;
 ```
 
-## WYKRES 2 
-
-![image](https://user-images.githubusercontent.com/110094376/196025263-b624aa79-7146-49eb-9ab0-7003f13af0ea.png)
 
 
+## WYKRES 3 
+
+![image](https://user-images.githubusercontent.com/110094376/196025437-fb48836a-7177-43c8-94f0-a9ba6f727e8f.png)
 
 
-- **Przy dużej liczbie firm taxi w Chicago tutaj możemy zobaczyć 50 najpopularniejszych. Taxi Affiliation Services ma bardzo dużo przewagę 
+**Przy dużej liczbie firm taxi w Chicago tutaj możemy zobaczyć 50 najpopularniejszych. Taxi Affiliation Services ma bardzo dużo przewagę 
 nad kolejną.** 
 
 ```
@@ -93,15 +96,14 @@ ORDER BY count(*) DESC
 LIMIT 50
 ```
 
-## WYKRES 3 
 
-![image](https://user-images.githubusercontent.com/110094376/196025437-fb48836a-7177-43c8-94f0-a9ba6f727e8f.png)
+## WYKRES 4 
 
-
-
+![image](https://user-images.githubusercontent.com/110094376/196025488-a29c47f3-451b-4028-95b4-ce2a3d1b3603.png)
 
 
-- **Najabrdziej popularną metodą płatności jest cały czas gotówka** -
+
+**Najabrdziej popularną metodą płatności jest cały czas gotówka** -
 
 ```
 SELECT payment_type, count(*) as payment
@@ -109,7 +111,3 @@ FROM `bigquery-public-data.chicago_taxi_trips.taxi_trips`
 GROUP BY payment_type
 ORDER BY count(*) DESC
 ```
-
-## WYKRES 4 
-
-![image](https://user-images.githubusercontent.com/110094376/196025488-a29c47f3-451b-4028-95b4-ce2a3d1b3603.png)
