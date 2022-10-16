@@ -1,7 +1,7 @@
-                                                                ##cropp_case_study
+                                                                ## Ccropp_case_study
 
 
-#CHICAGO TAXI TRIPS 
+# CHICAGO TAXI TRIPS 
 Tableau Dashboard https://public.tableau.com/views/Cropp/DashboardCROPPCasestudy_1?:language=en-US&:display_count=n&:origin=viz_share_link
 
 
